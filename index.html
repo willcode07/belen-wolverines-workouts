@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="theme-color" content="#0c2340" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="Wolverines" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="mobile-web-app-capable" content="yes" />
+<link rel="manifest" href="manifest.webmanifest" />
+<title>Belen Wolverines Summer Workout</title>
+<style>
+  :root {
+    --navy: #0c2340;
+    --navy-2: #143356;
+    --navy-3: #1a4068;
+    --gold: #c5a572;
+    --gold-bright: #d4b483;
+    --gold-dim: #8a7349;
+    --text: #f2ebe0;
+    --muted: #b8a990;
+    --line: #2a4a6e;
+    --ok: #c5a572;
+    --eq-db: #c5a572;
+    --eq-kb: #d4b483;
+    --eq-band: #4a90d9;
+    --eq-bench: #7a8b9e;
+    --eq-bar: #9aa8b8;
+    --eq-mat: #2a4a6e;
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bot: env(safe-area-inset-bottom, 0px);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    line-height: 1.4;
+    padding: 0;
+    max-width: 640px;
+    margin-inline: auto;
+    min-height: 100dvh;
+  }
+
+  .hero {
+    background: var(--navy-2);
+    border-bottom: 3px solid var(--gold);
+    padding: calc(16px + var(--safe-top)) 16px 14px;
+  }
+  .brand {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 0 0 6px;
+  }
+  h1 {
+    font-size: 1.45rem;
+    margin: 0;
+    font-weight: 800;
+    line-height: 1.2;
+    color: var(--text);
+  }
+  .tagline {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .offline-bar {
+    display: none;
+    background: var(--gold-dim);
+    color: #1a1408;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 6px 10px;
+  }
+  .offline-bar.show { display: block; }
+
+  .wrap { padding: 14px 14px calc(28px + var(--safe-bot)); }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .tabs button {
+    min-height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--navy-2);
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .tabs button.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #1a1408;
+  }
+
+  .controls {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 16px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: var(--navy);
+    padding: 10px 0 12px;
+    border-bottom: 2px solid var(--line);
+  }
+  label {
+    display: block;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    font-weight: 700;
+    margin: 0 0 5px;
+  }
+  select {
+    width: 100%;
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--navy-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23c5a572' d='M1 1l5 5 5-5'/%3E%3C/svg%3E") right 14px center / 12px no-repeat;
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 13px 40px 13px 14px;
+    font-size: 1rem;
+    min-height: 52px;
+    font-weight: 600;
+  }
+  .toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .toggle button {
+    min-height: 52px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--navy-2);
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-weight: 700;
+  }
+  .toggle button.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #1a1408;
+  }
+
+  .mission {
+    background: var(--navy-2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--gold);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .mission strong {
+    display: block;
+    color: var(--gold);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+  .mission p { margin: 0; font-size: 0.92rem; color: var(--text); }
+
+  .pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .pill {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 999px;
+    background: var(--navy-3);
+    color: var(--gold-bright);
+    border: 1px solid var(--line);
+  }
+
+  /* Numbered workout flow */
+  .flow { display: grid; gap: 12px; }
+  .step {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--navy-2);
+  }
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: var(--navy-3);
+    border-bottom: 1px solid var(--line);
+  }
+  .step-num {
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #1a1408;
+    font-weight: 800;
+    font-size: 1rem;
+    display: grid;
+    place-items: center;
+  }
+  .step-title {
+    font-weight: 800;
+    font-size: 1.02rem;
+    margin: 0;
+  }
+  .step-sub {
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .step-body { padding: 14px; }
+
+  .step.warmup .step-head {
+    background: #1e3a5f;
+    border-bottom-color: var(--gold-dim);
+  }
+  .step.hang .step-head {
+    background: #16304f;
+  }
+  .step.work .step-head {
+    border-bottom-color: var(--gold);
+  }
+  .step.finish .step-head {
+    background: #1a3555;
+  }
+
+  .timer-hint {
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+    background: rgba(197,165,114,0.12);
+    border: 1px solid var(--gold-dim);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+
+  .stretch-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+  .stretch-list li {
+    padding: 10px 12px;
+    background: var(--navy);
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    font-size: 0.92rem;
+  }
+  .warmup-name {
+    margin: 0 0 10px;
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.3;
+  }
+  .warmup-name .ex-link {
+    font-size: inherit;
+    font-weight: 800;
+  }
+  .stretch-part {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .stretch-part .part-name {
+    font-weight: 700;
+    color: var(--text);
+  }
+  .stretch-part .part-rx {
+    flex: 0 0 auto;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .stretch-part .part-cue {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .hang-box {
+    text-align: center;
+    padding: 8px 4px 4px;
+  }
+  .hang-time {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+  .hang-label {
+    margin-top: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .hang-help {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .ss-meta {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin: 0 0 10px;
+    font-weight: 600;
+  }
+
+  .note {
+    background: rgba(197,165,114,0.1);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold-bright);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 0.88rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+
+  .info-card {
+    background: var(--navy-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+  .info-card h2 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+    color: var(--gold);
+  }
+  .info-card p {
+    margin: 0 0 8px;
+    color: var(--muted);
+    font-size: 0.92rem;
+  }
+  .info-card p:last-child { margin-bottom: 0; }
+  .info-card strong { color: var(--text); }
+
+  .status {
+    margin-top: 16px;
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  .how-link {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(6, 14, 26, 0.72);
+    z-index: 100;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0 12px calc(12px + var(--safe-bot));
+  }
+  .modal-backdrop[hidden] { display: none; }
+  .modal {
+    width: 100%;
+    max-width: 520px;
+    max-height: min(78vh, 560px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    background: var(--navy-2);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--gold);
+    border-radius: 16px 16px 12px 12px;
+    padding: 16px 16px 18px;
+    box-shadow: none;
+  }
+  .modal-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .modal h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--gold);
+    line-height: 1.25;
+  }
+  .modal-close {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--navy);
+    color: var(--text);
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .modal ol {
+    margin: 0;
+    padding-left: 1.2em;
+    color: var(--text);
+    font-size: 0.95rem;
+  }
+  .modal li { margin-bottom: 8px; }
+  .modal .tip {
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: rgba(197,165,114,0.12);
+    border: 1px solid var(--gold-dim);
+    color: var(--gold-bright);
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .scoreboard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin: 0 0 14px;
+  }
+  .score-card {
+    background: var(--navy-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .score-card .n {
+    display: block;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.1;
+  }
+  .score-card .l {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .prog-track {
+    height: 10px;
+    background: var(--navy-3);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    margin-bottom: 14px;
+  }
+  .prog-fill {
+    height: 100%;
+    background: var(--gold);
+    width: 0%;
+    transition: width 0.25s ease;
+  }
+  .prog-caption {
+    margin: -8px 0 14px;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 600;
+    text-align: center;
+  }
+  .step.done {
+    border-color: var(--gold-dim);
+    opacity: 0.72;
+  }
+  .step.done .step-head {
+    background: #1f3d28;
+  }
+  .check-btn {
+    flex: 0 0 auto;
+    margin-left: auto;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 10px;
+    border: 2px solid var(--gold);
+    background: var(--navy);
+    color: var(--gold);
+    font-size: 1.2rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .check-btn.on {
+    background: var(--gold);
+    color: #1a1408;
+  }
+  .day-complete-bar {
+    margin-top: 14px;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    background: var(--navy-2);
+    text-align: center;
+  }
+  .day-complete-bar.done {
+    border-color: var(--gold);
+    background: rgba(197,165,114,0.12);
+  }
+  .day-complete-bar button {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: none;
+    background: var(--gold);
+    color: #1a1408;
+    font-size: 1rem;
+    font-weight: 800;
+  }
+  .day-complete-bar .msg {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold-bright);
+  }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(18px + var(--safe-bot));
+    transform: translateX(-50%) translateY(120%);
+    z-index: 200;
+    background: var(--gold);
+    color: #1a1408;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 12px 18px;
+    border-radius: 999px;
+    max-width: 90vw;
+    text-align: center;
+    transition: transform 0.25s ease;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .progress-list { display: grid; gap: 8px; }
+  .progress-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--navy-2);
+    border: 1px solid var(--line);
+    font-size: 0.9rem;
+  }
+  .progress-row.done { border-color: var(--gold-dim); }
+  .progress-row .mark {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    border: 2px solid var(--line);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    color: var(--gold);
+    flex: 0 0 auto;
+  }
+  .progress-row.done .mark {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #1a1408;
+  }
+  .progress-row button {
+    margin-left: auto;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--gold);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-weight: 700;
+    font-size: 0.8rem;
+  }
+  .tabs { grid-template-columns: 1fr 1fr 1fr; }
+
+
+  .eq-legend { display: none; }
+  .move {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+  .move:first-child { border-top: none; padding-top: 0; }
+  .vid-tap {
+    border: none;
+    padding: 0;
+    background: none;
+    width: 100%;
+    cursor: pointer;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+  }
+  .vid-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--navy);
+  }
+  .vid-card.vid-lg { width: 100%; max-width: 480px; margin: 0 auto 10px; }
+  .vid-thumb {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--navy-3);
+  }
+  .vid-thumb-empty {
+    aspect-ratio: 16 / 9;
+    background: var(--navy-3);
+  }
+  .vid-play {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-size: 1.1rem;
+    color: #1a1408;
+    background: rgba(12, 35, 64, 0.28);
+    z-index: 1;
+  }
+  .vid-play span {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--gold);
+    font-size: 0.85rem;
+    padding-left: 2px;
+  }
+  .vid-label {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    background: rgba(12, 35, 64, 0.82);
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 6px;
+    z-index: 2;
+  }
+  .move-meta .move-name { font-weight: 700; font-size: 0.95rem; }
+  .move-meta .move-rx {
+    margin-top: 4px;
+    color: var(--gold-bright);
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+  .move-video-link {
+    display: none;
+  }
+  .step-video-link {
+    display: none;
+  }
+  .ex-link {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: var(--gold);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    text-align: left;
+  }
+  .stretch-list .ex-link {
+    font-weight: 600;
+    font-size: 0.92rem;
+  }
+  .step-title .ex-link {
+    font-size: inherit;
+    font-weight: 800;
+  }
+  .no-video {
+    display: inline-block;
+    margin-left: 6px;
+    color: var(--muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-style: italic;
+  }
+  .stretch-list .no-video {
+    display: block;
+    margin: 2px 0 0;
+    margin-left: 0;
+  }
+  .finisher-text {
+    display: block;
+    width: 100%;
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--text);
+  }
+  .finisher-link {
+    display: block;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--gold);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+    text-align: center;
+    font-family: inherit;
+  }
+  .vid-embed {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    margin-bottom: 10px;
+  }
+  .vid-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .ms-link {
+    display: block;
+    text-align: center;
+    color: var(--gold);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+  .modal-note {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+  .status.ok { color: var(--gold); font-weight: 700; }
+</style>
+</head>
+<body>
+  <header class="hero">
+    <p class="brand">Belen Jesuit · Wolverines</p>
+    <h1>Belen Wolverines Summer Workout Program</h1>
+    <p class="tagline">10 Weeks | Water Polo Dryland | 2026</p>
+  </header>
+  <div id="offlineBar" class="offline-bar">Offline mode — workout saved on this phone</div>
+
+  <div class="wrap">
+    <div id="scoreboard" class="scoreboard"></div>
+    <div class="prog-track" aria-hidden="true"><div id="progFill" class="prog-fill"></div></div>
+    <p id="progCaption" class="prog-caption"></p>
+
+    <div class="tabs" id="tabs">
+      <button type="button" data-tab="workout" class="active">Workout</button>
+      <button type="button" data-tab="progress">Progress</button>
+      <button type="button" data-tab="info">How to use</button>
+    </div>
+
+    <div id="panel-workout">
+      <div class="controls">
+        <div>
+          <label for="week">Week</label>
+          <select id="week"></select>
+        </div>
+        <div>
+          <label for="day">Day</label>
+          <select id="day"></select>
+        </div>
+        <div>
+          <label>What gear do you have?</label>
+          <div class="toggle" id="trackToggle">
+            <button type="button" data-track="eq" class="active">Full gym</button>
+            <button type="button" data-track="floor">Floor only</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="session"></div>
+    </div>
+
+    <div id="panel-progress" hidden>
+      <div class="info-card">
+        <h2>Your Wolverine progress</h2>
+        <p>A week counts as complete when all 5 days are finished. Progress is saved on this phone only.</p>
+      </div>
+      <div id="progressList" class="progress-list"></div>
+      <div class="info-card" style="margin-top:12px">
+        <h2>Reset</h2>
+        <p>Only tap this if you want to clear all checkmarks on this phone.</p>
+        <button type="button" id="resetProgress" style="width:100%;min-height:48px;margin-top:8px;border-radius:10px;border:1px solid var(--line);background:var(--navy);color:var(--muted);font-weight:700">Clear all progress</button>
+      </div>
+    </div>
+
+    <div id="panel-info" hidden>
+      <div class="info-card">
+        <h2>Safety first</h2>
+        <p>Train with a coach, parent, or teammate watching. Do not lift heavy or do hard field work alone.</p>
+      </div>
+      <div class="info-card">
+        <h2>Before you start</h2>
+        <p>Open this page once on Wi‑Fi, then add it to your Home Screen. After that it works with <strong>no signal</strong>.</p>
+        <p>Pick your week → day. Choose <strong>Full gym</strong> or <strong>Floor only</strong>.</p>
+        <p>Gold exercise names open a matching Muscle &amp; Strength form video (needs Wi‑Fi/data). If there is no close match, you will see <em>No video available</em>.</p><p>Tap the gold square on each block to check it off. Saved on this phone only.</p>
+      </div>
+      <div class="info-card">
+        <h2>Every workout order</h2>
+        <p>1) Stretch 15 min (Weeks 9–10: Scoops, Lunges, Bear Crawls, World’s Greatest Stretch) · 2) Hang or plank 1 min · 3) Supersets · 4) Finisher (if listed) · 5) Hang or plank 1 min</p>
+        <p><strong>Floor only:</strong> every dead hang becomes a 1:00 plank in push-up position.</p>
+      </div>
+      <div class="info-card">
+        <h2>Odd weeks vs even weeks</h2>
+        <p><strong>Odd weeks (1, 3, 5, 7, 9):</strong> learn the moves, keep form clean.</p>
+        <p><strong>Even weeks (2, 4, 6, 8, 10):</strong> new patterns + higher intensity.</p>
+        <p><strong>Weeks 9–10</strong> are the hardest. Stop a set early if your form breaks.</p>
+      </div>
+      <div class="info-card">
+        <h2>What is RPE?</h2>
+        <p><strong>RPE</strong> = Rate of Perceived Exertion (how hard it feels from 1–10).</p>
+        <p><strong>6</strong> = warm / easy · <strong>7</strong> = challenging but clean · <strong>8</strong> = hard · <strong>9</strong> = almost max</p>
+        <p>Match the RPE shown on each day. If form gets sloppy, stop the set.</p>
+      </div>
+      <div class="info-card">
+        <h2>Tempo tip</h2>
+        <p><strong>3s down</strong> = lower for 3 seconds. <strong>2s down/up</strong> = 2 seconds each way.</p>
+      </div>
+      <div class="info-card">
+        <h2>Gym tips</h2>
+        <p>No pain on shoulders — shrink the range.</p>
+        <p>Sleep well, especially in weeks 9–10.</p>
+      </div>
+    </div>
+
+    <div id="howtoModal" class="modal-backdrop" hidden>
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="howtoTitle">
+        <div class="modal-top">
+          <h3 id="howtoTitle">How to</h3>
+          <button type="button" class="modal-close" id="howtoClose" aria-label="Close">×</button>
+        </div>
+        <div id="howtoBody"></div>
+      </div>
+    </div>
+
+    <p id="cacheStatus" class="status">Saving workout to this phone…</p>
+  <div id="toast" class="toast" role="status"></div>
+  </div>
+
+<script src="./exercise-videos.js"></script>
+<script>
+const DATA = {"BOOKEND":"15-min stretch (W9–10 outdoor set) → 1:00 dead hang (floor: 1:00 plank) → main → 1:00 dead hang (floor: 1:00 plank)","SPRINTS":[{"id":"s1","weeks":"1–2","title":"Floor Exercises","goal":"Ground strength, scapular + hip control, eggbeater-ready trunk stiffness.","keys":["Push-Up Variations","Dead Bug","Planks","Hip Flips","Rows"],"weekA":{"id":"w1","label":"Week 1 — Teach / Load","intent":"Own positions. Clean tempo. Leave 2–3 reps in reserve.","sessions":[{"id":"w1d1","label":"Day 1","focus":"Full Body","stretch":"World’s Greatest Stretch, 90/90 Hips, Thoracic Openers, Shoulder CARs (5/side)","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"90s","eq":[{"name":"Goblet Squat","rx":"8 · 3s down","cue":"Elbows inside knees"},{"name":"Pull-Up or Band-Assisted Pull-Up","rx":"5–8","cue":"Full hang to chin over"}],"floor":[{"name":"Tempo Air Squat","rx":"10 · 3s down"},{"name":"Prone Superman Pull","rx":"12"}]},{"id":"B","rounds":"3","rest":"75s","eq":[{"name":"Push-Ups","rx":"8–12 · 2s down/up"},{"name":"Dead Bug","rx":"8/side slow"}],"floor":[{"name":"Push-Ups (Knees OK)","rx":"8–12"},{"name":"Dead Bug","rx":"8/side slow"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Hip Flips","rx":"6/side"},{"name":"Front Plank","rx":"40s"}],"floor":[{"name":"Hip Flips","rx":"6/side"},{"name":"Front Plank","rx":"40s"}]}]},{"id":"w1d2","label":"Day 2","focus":"Upper + Shoulders","stretch":"Shoulder CARs, Band Dislocates Light, Pec Wall Stretch, World’s Greatest Stretch","rpe":"6","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Standing DB Shoulder Press","rx":"8"},{"name":"Push-Ups","rx":"8"}],"floor":[{"name":"Pike Push-Ups","rx":"6–8"},{"name":"Tempo Push-Ups","rx":"8"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"KB/DB Orbit (Halo)","rx":"8/dir"},{"name":"Band Face Pull","rx":"12–15"}],"floor":[{"name":"Arm Orbits","rx":"10/dir"},{"name":"Prone W-Raise","rx":"12–15"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Scapular Pull-Up (Active Hang Shrugs)","rx":"8"},{"name":"Band ER @ 0°","rx":"12/side"}],"floor":[{"name":"Scapular Push-Up","rx":"10"},{"name":"Prone Floor Angel","rx":"10 slow"}]}]},{"id":"w1d3","label":"Day 3","focus":"Legs / Hips","stretch":"90/90, Pigeon, World’s Greatest Stretch, Calf Wall Stretch","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"90s","eq":[{"name":"Bulgarian Split Squat (Bench)","rx":"8/leg · 2s down"},{"name":"Cossack Squat","rx":"6/side"}],"floor":[{"name":"Reverse Lunge","rx":"8/leg · 2s down"},{"name":"Lateral Lunge","rx":"6/side"}]},{"id":"B","rounds":"3","rest":"75s","eq":[{"name":"Single-Leg KB RDL","rx":"8/leg"},{"name":"Nordic Curl Eccentrics","rx":"5","cue":"Slow lower, hands catch"}],"floor":[{"name":"Single-Leg RDL (Bodyweight)","rx":"8/leg"},{"name":"Good Morning (Bodyweight)","rx":"10 slow"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Hip Flips","rx":"8/side"},{"name":"Wall Sit","rx":"40s"}],"floor":[{"name":"Hip Flips","rx":"8/side"},{"name":"Isometric Squat Hold","rx":"40s"}]}]},{"id":"w1d4","label":"Day 4","focus":"Core + Conditioning","stretch":"Cat-Cow, Thread-the-Needle, Hip Openers, Shoulder CARs","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"45s","eq":[{"name":"Hanging Leg Raise","rx":"8–10"},{"name":"Russian Twist","rx":"10/side"}],"floor":[{"name":"Lying Leg Raise","rx":"10"},{"name":"Russian Twist","rx":"10/side"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Farmers Carry","rx":"30m"},{"name":"Side Plank","rx":"30s/side"}],"floor":[{"name":"Bear Crawl","rx":"20m or 30s"},{"name":"Side Plank","rx":"30s/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Dead Bug","rx":"8/side"},{"name":"Hollow Hold","rx":"25s"}],"floor":[{"name":"Dead Bug","rx":"8/side"},{"name":"Hollow Hold","rx":"25s"}]}],"finisher":{"eq":"Field: 6×20m Accelerations + Walk Back","floor":"Floor: 6×20 Mountain Climbers + 20s Rest"}},{"id":"w1d5","label":"Day 5","focus":"Full + Field","stretch":"World’s Greatest Stretch Circuit, CARs, Light Hip Openers, Bear Crawl Practice","rpe":"6–7","supersets":[{"id":"A","rounds":"3","rest":"75s","eq":[{"name":"Single-Arm DB Row","rx":"10/side"},{"name":"Push-Up to Downward Dog","rx":"8"}],"floor":[{"name":"Prone Row","rx":"12"},{"name":"Push-Up to Downward Dog","rx":"8"}]},{"id":"B","rounds":"3","rest":"75s","eq":[{"name":"Walking Lunge","rx":"8/leg"},{"name":"KB Swing","rx":"10"}],"floor":[{"name":"Reverse Lunge","rx":"8/leg"},{"name":"Glute Bridge","rx":"12"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Orbits","rx":"6/dir light"},{"name":"Bird Dog","rx":"8/side"}],"floor":[{"name":"Arm Orbits","rx":"8/dir"},{"name":"Bird Dog","rx":"8/side"}]}],"notes":"Outdoor field preferred for finisher.","finisher":{"eq":"Field: 5 Rounds — 10m Shuffle L/R + 10m Sprint + Walk 30s","floor":"Floor: 5 Rounds — Bear Crawl 20s + Crab Walk 20s + Rest 30s"}}]},"weekB":{"id":"w2","label":"Week 2 — Intensify + Power Intro","intent":"Add load/reps and introduce clap push-ups, lateral bounds, and get-ups.","sessions":[{"id":"w2d1","label":"Day 1","focus":"Eccentric Strength + Explosiveness","stretch":"WGS, Open Book, 90/90, Shoulder CARs (6/side)","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"90s","eq":[{"name":"Front Squat or Goblet Squat","rx":"5 · controlled"},{"name":"Pull-Up or Band-Assisted Pull-Up","rx":"5–8"}],"floor":[{"name":"Tempo Air Squat","rx":"8 · 3s down"},{"name":"Prone Superman Pull","rx":"15"}]},{"id":"B","rounds":"3","rest":"75s","eq":[{"name":"Push-Up + Clap","rx":"5","cue":"Land soft, full plank"},{"name":"Nordic Curl Eccentrics","rx":"5"}],"floor":[{"name":"Explosive Push-Ups","rx":"6–8"},{"name":"Good Morning","rx":"12 slow"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Turkish Get-Up","rx":"2/side"},{"name":"Shoulder CARs","rx":"5/side slow"}],"floor":[{"name":"Half Get-Up to Elbow","rx":"3/side"},{"name":"Shoulder CARs","rx":"5/side slow"}]}]},{"id":"w2d2","label":"Day 2","focus":"Upper + Shoulders","stretch":"Longer Pec + Posterior Capsule; CARs Slow; Wall Slides","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"DB Floor Press","rx":"10"},{"name":"Band Face Pull","rx":"15"}],"floor":[{"name":"Tempo Push-Ups","rx":"10"},{"name":"Prone W-Raise","rx":"15"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Orbits","rx":"10/dir"},{"name":"Scapular Pull-Up","rx":"10"}],"floor":[{"name":"Arm Orbits","rx":"12/dir"},{"name":"Scapular Push-Up","rx":"12"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Band ER @ 90°","rx":"12/side"},{"name":"Side Plank","rx":"35s/side"}],"floor":[{"name":"Prone Floor Angel","rx":"12"},{"name":"Side Plank","rx":"35s/side"}]}]},{"id":"w2d3","label":"Day 3","focus":"Power + Lateral Movement","stretch":"Dynamic WGS, Leg Swings, Hip CARs (3/side)","rpe":"7–8","supersets":[{"id":"A","rounds":"3","rest":"90s","eq":[{"name":"Depth Jump to Broad Jump","rx":"5","cue":"Soft landings"},{"name":"Lateral Bounds","rx":"5/side"}],"floor":[{"name":"Squat Jump","rx":"6"},{"name":"Lateral Skater Bounds","rx":"6/side"}]},{"id":"B","rounds":"3","rest":"75s","eq":[{"name":"One-Arm KB Snatch","rx":"5/side"},{"name":"Overhead Walking Lunge","rx":"6/leg"}],"floor":[{"name":"KB Swing","rx":"12"},{"name":"Walking Lunge","rx":"8/leg"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Pallof Press Iso Hold","rx":"3 then 30s/side"},{"name":"Hip Flips","rx":"8/side"}],"floor":[{"name":"Dead Bug (Pause)","rx":"10/side"},{"name":"Hip Flips","rx":"8/side"}]}]},{"id":"w2d4","label":"Day 4","focus":"Core + Conditioning","stretch":"Cat-Cow, Thread-the-Needle, Hip Openers, Quick CARs","rpe":"7–8","supersets":[{"id":"A","rounds":"5","rest":"30s","eq":[{"name":"Hanging Leg Raise","rx":"10"},{"name":"Russian Twist","rx":"12/side"}],"floor":[{"name":"Lying Leg Raise","rx":"12"},{"name":"Russian Twist","rx":"12/side"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Suitcase Carry","rx":"40m/side"},{"name":"Push-Ups","rx":"AMRAP 45s"}],"floor":[{"name":"Bear Crawl","rx":"40s"},{"name":"Push-Ups","rx":"AMRAP 45s"}]},{"id":"C","rounds":"3","rest":"30s","eq":[{"name":"Hollow Rocks","rx":"20"},{"name":"Bird Dog","rx":"10/side"}],"floor":[{"name":"Hollow Rocks","rx":"20"},{"name":"Bird Dog","rx":"10/side"}]}],"finisher":{"eq":"Field: 8×20m Accelerations","floor":"Floor: 8×25 Mountain Climbers + 15s Rest"}},{"id":"w2d5","label":"Day 5","focus":"Full + Field","stretch":"Full Flow; Emphasize Quality Hip Flips + CARs","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Band/DB Row","rx":"12/side"},{"name":"Chaos Push-Up (Hands on Soft Surface)","rx":"8"}],"floor":[{"name":"Prone Y-Raise","rx":"15"},{"name":"Scapular Push-Up","rx":"12"}]},{"id":"B","rounds":"4","rest":"60s","eq":[{"name":"Bulgarian Split Squat","rx":"8/leg"},{"name":"Farmers Carry","rx":"40m"}],"floor":[{"name":"Split Squat","rx":"8/leg"},{"name":"Crab Walk","rx":"30s"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Orbits","rx":"8/dir"},{"name":"Dead Bug","rx":"8/side"}],"floor":[{"name":"Arm Orbits","rx":"10/dir"},{"name":"Dead Bug","rx":"8/side"}]}],"finisher":{"eq":"Field: 6 Rounds COD — 10m Shuffle + 15m Sprint","floor":"Floor: 6 Rounds Bear Crawl + Sprawl"}}]}},{"id":"s2","weeks":"3–4","title":"Shoulder Mobility","goal":"Scapular control, ER strength, overhead readiness, throwing durability.","keys":["Shoulder CARs","Orbits","Band ER","Rows","Controlled Push-Ups"],"weekA":{"id":"w3","label":"Week 3 — Teach / Load","intent":"Pain-free ranges only. Prefer quality over load on CARs/orbits.","sessions":[{"id":"w3d1","label":"Day 1","focus":"Upper + Shoulders","stretch":"10 Min CARs + Pec/Lat Wall Stretches + World’s Greatest Stretch (5/side)","rpe":"6","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Shoulder CARs","rx":"5/side slow"},{"name":"Band/DB Row","rx":"10/side"}],"floor":[{"name":"Shoulder CARs","rx":"5/side slow"},{"name":"Prone Row","rx":"12"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"DB Y-Press","rx":"8"},{"name":"Orbits","rx":"8/dir"}],"floor":[{"name":"Prone Y-Raise","rx":"12"},{"name":"Arm Orbits","rx":"10/dir"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Band ER @ 0° then 90°","rx":"10+8/side"},{"name":"Dead Bug","rx":"8/side"}],"floor":[{"name":"Prone Floor Angel","rx":"10"},{"name":"Dead Bug","rx":"8/side"}]}]},{"id":"w3d2","label":"Day 2","focus":"Full Body","stretch":"CARs, Open Book, Sleeper Stretch Gentle, Hip Openers","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"90s","eq":[{"name":"Goblet Squat","rx":"8"},{"name":"Seated Z-Press (DB/KB)","rx":"6–8"}],"floor":[{"name":"Air Squat","rx":"10"},{"name":"Pike Push-Ups","rx":"6–8"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Single-Arm DB Row","rx":"10/side"},{"name":"Wall Slide + Band Pull-Apart","rx":"12+12"}],"floor":[{"name":"Prone T-Raise","rx":"12"},{"name":"Wall Angel","rx":"10"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Bulgarian Split Squat","rx":"8/leg"},{"name":"Side Plank","rx":"30s/side"}],"floor":[{"name":"Split Squat","rx":"8/leg"},{"name":"Side Plank","rx":"30s/side"}]}]},{"id":"w3d3","label":"Day 3","focus":"Upper + Shoulders","stretch":"Long CARs; Posterior Capsule; Lat Stretch; Neck CARs (3/side)","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Band Face Pull","rx":"15"},{"name":"Push-Up + Scapular Protraction","rx":"8"}],"floor":[{"name":"Prone W-Raise","rx":"15"},{"name":"Scapular Push-Up","rx":"10"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"KB Orbit","rx":"10/dir lighter"},{"name":"Wrist CARs","rx":"8/dir/side"}],"floor":[{"name":"Arm Orbits","rx":"12/dir"},{"name":"Wrist CARs","rx":"8/dir/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Hanging Scapular Pull","rx":"8"},{"name":"Hollow Hold","rx":"30s"}],"floor":[{"name":"Scapular Push-Up","rx":"12"},{"name":"Hollow Hold","rx":"30s"}]}]},{"id":"w3d4","label":"Day 4","focus":"Legs + Conditioning","stretch":"Hips + Light Shoulder CARs Only (Recovery Bias)","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Cossack Squat","rx":"8/side"},{"name":"Hip Flips","rx":"6/side"}],"floor":[{"name":"Lateral Lunge","rx":"8/side"},{"name":"Hip Flips","rx":"6/side"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"RDL","rx":"8"},{"name":"Assisted Copenhagen (Knee)","rx":"6/side"}],"floor":[{"name":"Good Morning","rx":"10"},{"name":"Side-Lying Adductor Lift","rx":"10/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Wall Sit","rx":"45s"},{"name":"Band Pull-Apart","rx":"20"}],"floor":[{"name":"Isometric Squat Hold","rx":"45s"},{"name":"Prone Y-Raise","rx":"15"}]}],"finisher":{"eq":"Field: 5×30m Build-Ups (Not All-Out)","floor":"Floor: 5×30s High Knees + 30s Walk"}},{"id":"w3d5","label":"Day 5","focus":"Mobility + Field","stretch":"Full Shoulder Series 15 Min (CARs, WGS, Wall Slides, Sleeper)","rpe":"6","supersets":[{"id":"A","rounds":"3","rest":"45s","eq":[{"name":"Shoulder CARs","rx":"4/side very slow"},{"name":"Orbits","rx":"6/dir"}],"floor":[{"name":"Shoulder CARs","rx":"4/side"},{"name":"Arm Orbits","rx":"8/dir"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Pull-Up or Band-Assisted","rx":"6–8"},{"name":"Tempo Push-Ups","rx":"8"}],"floor":[{"name":"Prone Row","rx":"15"},{"name":"Tempo Push-Ups","rx":"8"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Front Plank","rx":"40s"},{"name":"Hip Flips","rx":"6/side"}],"floor":[{"name":"Front Plank","rx":"40s"},{"name":"Hip Flips","rx":"6/side"}]}],"finisher":{"eq":"Field: 4 Rounds — 10m Backpedal + 10m Sprint","floor":"Floor: 4 Rounds — Bear Crawl + Crab Walk"}}]},"weekB":{"id":"w4","label":"Week 4 — Intensify + Overhead Strength","intent":"Y-press, Z-press, hanging work, denser CARs — keep CARs slow.","sessions":[{"id":"w4d1","label":"Day 1","focus":"Upper + Shoulders","stretch":"CARs + Pec/Lat + WGS + Open Book","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Shoulder CARs","rx":"6/side"},{"name":"DB Y-Press","rx":"10"}],"floor":[{"name":"Shoulder CARs","rx":"6/side"},{"name":"Prone Y-Raise","rx":"15"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Single-Arm DB Row","rx":"12/side"},{"name":"Band Face Pull","rx":"15–20"}],"floor":[{"name":"Prone Row","rx":"15"},{"name":"Prone W-Raise","rx":"15–20"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Band ER Ladder","rx":"12+10/side"},{"name":"Pallof Press","rx":"10/side"}],"floor":[{"name":"Floor Angels","rx":"12"},{"name":"Dead Bug (Pause)","rx":"10/side"}]}]},{"id":"w4d2","label":"Day 2","focus":"Full Body","stretch":"WGS, CARs, Hip Flexor Stretch, Thoracic Openers","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Goblet Squat","rx":"10"},{"name":"Seated Z-Press","rx":"8"}],"floor":[{"name":"Air Squat","rx":"12"},{"name":"Pike Push-Ups","rx":"8"}]},{"id":"B","rounds":"4","rest":"60s","eq":[{"name":"Orbits","rx":"10/dir"},{"name":"Hanging Hip Twist","rx":"6/side"}],"floor":[{"name":"Arm Orbits","rx":"12/dir"},{"name":"Russian Twist","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Alternating Lunge Jump","rx":"6/leg"},{"name":"Side Plank + Reach","rx":"8/side"}],"floor":[{"name":"Reverse Lunge","rx":"10/leg"},{"name":"Side Plank + Reach","rx":"8/side"}]}]},{"id":"w4d3","label":"Day 3","focus":"Upper + Shoulders","stretch":"Extra Time on Sleeper + Lat + Band Dislocates + Wrist CARs","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"45s","eq":[{"name":"Orbits","rx":"12/dir"},{"name":"Pull-Up","rx":"AMRAP @ RPE7"}],"floor":[{"name":"Arm Orbits","rx":"14/dir"},{"name":"Prone T-Raise","rx":"15"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Chaos Push-Up","rx":"10"},{"name":"Band ER","rx":"15/side"}],"floor":[{"name":"Scapular Push-Up","rx":"12"},{"name":"Prone ER Lift","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Plank Shoulder Taps","rx":"12/side"},{"name":"Hollow Rocks","rx":"20"}],"floor":[{"name":"Plank Shoulder Taps","rx":"12/side"},{"name":"Hollow Rocks","rx":"20"}]}]},{"id":"w4d4","label":"Day 4","focus":"Legs + Conditioning","stretch":"Hips Primary; Light CARs Only; Hip CARs 3/side","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Bulgarian Split Squat","rx":"10/leg"},{"name":"Hip Flips","rx":"8/side"}],"floor":[{"name":"Split Squat","rx":"10/leg"},{"name":"Hip Flips","rx":"8/side"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Nordic Curl Eccentrics","rx":"5"},{"name":"Assisted Copenhagen","rx":"8/side"}],"floor":[{"name":"SL RDL","rx":"10/leg"},{"name":"Side-Lying Adductor Lift","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Cossack Squat","rx":"8/side"},{"name":"Band Pull-Apart","rx":"25"}],"floor":[{"name":"Lateral Lunge","rx":"8/side"},{"name":"Prone Y-Raise","rx":"18"}]}],"finisher":{"eq":"Field: 6×30m Build-Ups","floor":"Floor: 6×35s High Knees"}},{"id":"w4d5","label":"Day 5","focus":"Mobility + Field","stretch":"Full Shoulder Series + WGS + Neck CARs","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"40s","eq":[{"name":"Shoulder CARs","rx":"5/side"},{"name":"KB Orbit","rx":"8/dir"}],"floor":[{"name":"Shoulder CARs","rx":"5/side"},{"name":"Arm Orbits","rx":"10/dir"}]},{"id":"B","rounds":"3","rest":"45s","eq":[{"name":"Push-Up to Downward Dog","rx":"10"},{"name":"Band Face Pull","rx":"15"}],"floor":[{"name":"Push-Up to Downward Dog","rx":"10"},{"name":"Prone W-Raise","rx":"15"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Turkish Get-Up","rx":"2/side"},{"name":"Hip Flips","rx":"8/side"}],"floor":[{"name":"Half Get-Up","rx":"3/side"},{"name":"Hip Flips","rx":"8/side"}]}],"finisher":{"eq":"Field: 5 Rounds Backpedal + Sprint + Walk","floor":"Floor: 5 Rounds Crawl Series"}}]}},{"id":"s3","weeks":"5–6","title":"Hip Mobility","goal":"Open hips, single-leg strength, eggbeater/kick drive transfer.","keys":["Bulgarian Split Squats","Hip Flips","WGS","Cossacks","Copenhagens"],"weekA":{"id":"w5","label":"Week 5 — Teach / Load","intent":"Own deep hip positions; Bulgarian depth before load; introduce Copenhagens.","sessions":[{"id":"w5d1","label":"Day 1","focus":"Legs + Mobility","stretch":"90/90 Flow, Pigeon, World’s Greatest Stretch, Frog Stretch, Hip CARs (3/side)","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"90s","eq":[{"name":"Bulgarian Split Squat","rx":"8/leg · 3s down"},{"name":"Cossack Squat","rx":"6/side"}],"floor":[{"name":"Rear-Foot Elevated or Reverse Lunge","rx":"8/leg"},{"name":"Lateral Lunge","rx":"6/side"}]},{"id":"B","rounds":"3","rest":"75s","eq":[{"name":"Single-Leg KB RDL","rx":"8/leg"},{"name":"Hip Flips","rx":"6/side controlled"}],"floor":[{"name":"Single-Leg RDL (Bodyweight)","rx":"8/leg"},{"name":"Hip Flips","rx":"6/side"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Assisted Copenhagen (Knee)","rx":"6/side"},{"name":"Side Plank","rx":"30s/side"}],"floor":[{"name":"Side-Lying Adductor Lift","rx":"10/side"},{"name":"Side Plank","rx":"30s/side"}]}]},{"id":"w5d2","label":"Day 2","focus":"Full Body","stretch":"WGS + CARs + Hip Flexor Wall Stretch","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Goblet Squat","rx":"8 deep"},{"name":"KB Swing","rx":"10"}],"floor":[{"name":"Deep Air Squat Hold + Pulses","rx":"8 + 5 Pulses"},{"name":"Glute Bridge March","rx":"10/leg"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Single-Arm DB Row","rx":"10/side"},{"name":"Orbits","rx":"8/dir"}],"floor":[{"name":"Prone Row","rx":"12"},{"name":"Arm Orbits","rx":"10/dir"}]},{"id":"C","rounds":"3","rest":"60s","eq":[{"name":"Overhead Walking Lunge","rx":"6/leg light"},{"name":"Front Plank","rx":"45s"}],"floor":[{"name":"Walking Lunge","rx":"8/leg"},{"name":"Front Plank","rx":"45s"}]}]},{"id":"w5d3","label":"Day 3","focus":"Legs / Hips","stretch":"Long 90/90 + Adductor Rock-Backs + Pigeon","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"90s","eq":[{"name":"Step-Up (Bench)","rx":"8/leg"},{"name":"Single-Leg Glute Bridge","rx":"10/leg"}],"floor":[{"name":"Split Squat","rx":"8/leg"},{"name":"Single-Leg Glute Bridge","rx":"10/leg"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Banded Adduction (or Squeeze Block)","rx":"12/side"},{"name":"Bird Dog","rx":"8/side"}],"floor":[{"name":"Side-Lying Adductor Lift","rx":"12/side"},{"name":"Bird Dog","rx":"8/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Wall Sit","rx":"40s"},{"name":"Hip Flips","rx":"6/side"}],"floor":[{"name":"Isometric Squat Hold","rx":"40s"},{"name":"Hip Flips","rx":"6/side"}]}]},{"id":"w5d4","label":"Day 4","focus":"Conditioning + Field","stretch":"Dynamic WGS, Leg Swings, CARs Quick, Bear Crawl","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"45s","eq":[{"name":"Lateral Bounds","rx":"6/side"},{"name":"Push-Ups","rx":"AMRAP 30s"}],"floor":[{"name":"Lateral Skater Bounds","rx":"8/side"},{"name":"Push-Ups","rx":"AMRAP 30s"}]},{"id":"B","rounds":"3","rest":"45s","eq":[{"name":"Hip Flips","rx":"8/side"},{"name":"KB Overs (Around Head/Hip)","rx":"8/dir"}],"floor":[{"name":"Hip Flips","rx":"8/side"},{"name":"Arm Orbits","rx":"10/dir"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Russian Twist","rx":"12/side"},{"name":"Dead Bug","rx":"8/side"}],"floor":[{"name":"Russian Twist","rx":"12/side"},{"name":"Dead Bug","rx":"8/side"}]}],"finisher":{"eq":"Field: 6 Rounds — 5m Shuffle + 10m Sprint + 5 High Knees","floor":"Floor: 6 Rounds — Bear Crawl 20s + Crab Walk 20s"}},{"id":"w5d5","label":"Day 5","focus":"Mobility","stretch":"15-Min Hip-Only Flow (90/90, Pigeon, Frog, WGS) + Full Hip CARs","rpe":"6","supersets":[{"id":"A","rounds":"3","rest":"60s","eq":[{"name":"Bulgarian Isometric Hold","rx":"25s/leg Bottom"},{"name":"Hip Flips","rx":"5/side slow"}],"floor":[{"name":"Split Squat Isometric Hold","rx":"25s/leg"},{"name":"Hip Flips","rx":"5/side"}]},{"id":"B","rounds":"3","rest":"45s","eq":[{"name":"Hip CARs (Standing or Bench)","rx":"4/side slow"},{"name":"Shoulder CARs","rx":"4/side"}],"floor":[{"name":"Hip CARs","rx":"4/side"},{"name":"Shoulder CARs","rx":"4/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Pallof Press","rx":"10/side"},{"name":"Glute Bridge","rx":"15"}],"floor":[{"name":"Dead Bug (Pause)","rx":"8/side"},{"name":"Glute Bridge","rx":"15"}]}]}]},"weekB":{"id":"w6","label":"Week 6 — Intensify + Lateral / Single-Leg","intent":"More unilateral + lateral volume; denser hip flips; Copenhagens up.","sessions":[{"id":"w6d1","label":"Day 1","focus":"Legs + Mobility","stretch":"Same Hip Flow; Longer End-Range Holds; Hip CARs","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Bulgarian Split Squat","rx":"10/leg"},{"name":"Cossack Squat","rx":"8/side"}],"floor":[{"name":"Reverse Lunge","rx":"10/leg"},{"name":"Lateral Lunge","rx":"8/side"}]},{"id":"B","rounds":"4","rest":"60s","eq":[{"name":"RDL","rx":"10"},{"name":"Assisted Copenhagen","rx":"8/side"}],"floor":[{"name":"SL RDL","rx":"10/leg"},{"name":"Side-Lying Adductor Lift","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Hip Flips","rx":"8/side"},{"name":"Hollow Rocks","rx":"20"}],"floor":[{"name":"Hip Flips","rx":"8/side"},{"name":"Hollow Rocks","rx":"20"}]}]},{"id":"w6d2","label":"Day 2","focus":"Full Body","stretch":"WGS + CARs + Hip Flexors + Open Book","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Goblet Squat","rx":"10"},{"name":"One-Arm KB Snatch","rx":"5/side"}],"floor":[{"name":"Deep Squat Pulses","rx":"12"},{"name":"KB Swing","rx":"12"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Band/DB Row","rx":"12/side"},{"name":"Orbits","rx":"10/dir"}],"floor":[{"name":"Prone T-Raise","rx":"15"},{"name":"Arm Orbits","rx":"12/dir"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Alternating Lunge Jump","rx":"8/leg"},{"name":"Plank Shoulder Taps","rx":"10/side"}],"floor":[{"name":"Walking Lunge","rx":"10/leg"},{"name":"Plank Shoulder Taps","rx":"10/side"}]}]},{"id":"w6d3","label":"Day 3","focus":"Legs / Hips","stretch":"Adductor + 90/90 Emphasis + Calf","rpe":"7–8","supersets":[{"id":"A","rounds":"5","rest":"75s","eq":[{"name":"Walking Lunge","rx":"10/leg"},{"name":"Bridge March","rx":"12/leg"}],"floor":[{"name":"Walking Lunge","rx":"10/leg"},{"name":"Bridge March","rx":"12/leg"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Farmers Carry","rx":"40m"},{"name":"Nordic Curl Eccentrics","rx":"5"}],"floor":[{"name":"Bear Crawl","rx":"40s"},{"name":"Good Morning","rx":"12"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Wall Sit","rx":"50s"},{"name":"Hip Flips","rx":"8/side"}],"floor":[{"name":"Isometric Squat Hold","rx":"50s"},{"name":"Hip Flips","rx":"8/side"}]}]},{"id":"w6d4","label":"Day 4","focus":"Conditioning + Field","stretch":"Dynamic Hips + Quick CARs","rpe":"8","supersets":[{"id":"A","rounds":"5","rest":"40s","eq":[{"name":"Depth Jump to Broad Jump","rx":"4"},{"name":"Push-Ups","rx":"AMRAP 35s"}],"floor":[{"name":"Squat Jump","rx":"6"},{"name":"Push-Ups","rx":"AMRAP 35s"}]},{"id":"B","rounds":"4","rest":"40s","eq":[{"name":"Lateral Bounds","rx":"6/side"},{"name":"Hip Flips","rx":"10/side"}],"floor":[{"name":"Lateral Skater Bounds","rx":"8/side"},{"name":"Hip Flips","rx":"10/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"KB Circuit: Sides / Semicircles / Overs","rx":"8 each"},{"name":"Bird Dog","rx":"10/side"}],"floor":[{"name":"Russian Twist","rx":"15/side"},{"name":"Bird Dog","rx":"10/side"}]}],"finisher":{"eq":"Field: 8 COD Rounds (Shuffle + Sprint + High Knees)","floor":"Floor: 8 Rounds Bear + Crab + Sprawl"}},{"id":"w6d5","label":"Day 5","focus":"Mobility","stretch":"Full Hip Flow 15 Min + Light CARs + Stick Stretch","rpe":"6–7","supersets":[{"id":"A","rounds":"4","rest":"45s","eq":[{"name":"Bulgarian Isometric Hold","rx":"30s/leg"},{"name":"Hip Flips","rx":"6/side slow"}],"floor":[{"name":"Split Squat Isometric Hold","rx":"30s/leg"},{"name":"Hip Flips","rx":"6/side"}]},{"id":"B","rounds":"3","rest":"45s","eq":[{"name":"Hip CARs","rx":"5/side"},{"name":"Shoulder CARs","rx":"5/side"}],"floor":[{"name":"Hip CARs","rx":"5/side"},{"name":"Shoulder CARs","rx":"5/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Stick Complex: Good Morning + Squat + Chop","rx":"8 each"},{"name":"Front Plank","rx":"50s"}],"floor":[{"name":"Good Morning + Air Squat + Reach Chop","rx":"8 each"},{"name":"Front Plank","rx":"50s"}]}]}]}},{"id":"s4","weeks":"7–8","title":"Core Burnout","goal":"Anti-rotation, anti-extension, rotational power, high-density trunk work.","keys":["Dead Bug","Planks","Hip Flips","Carries","Hanging Core"],"weekA":{"id":"w7","label":"Week 7 — Teach / Load","intent":"Brace quality first. Stop a set early if lumbar extends.","sessions":[{"id":"w7d1","label":"Day 1","focus":"Core + Full","stretch":"Cat-Cow, Dead Bug Prep, WGS, CARs","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Hanging Leg Raise","rx":"8–10"},{"name":"Front Plank","rx":"45s"}],"floor":[{"name":"Lying Leg Raise","rx":"10"},{"name":"Front Plank","rx":"45s"}]},{"id":"B","rounds":"4","rest":"60s","eq":[{"name":"Tall-Kneeling Chop","rx":"8/side"},{"name":"Push-Ups","rx":"10"}],"floor":[{"name":"Cross-Body Dead Bug","rx":"8/side"},{"name":"Push-Ups","rx":"10"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Hip Flips","rx":"8/side"},{"name":"Farmers Carry","rx":"30m"}],"floor":[{"name":"Hip Flips","rx":"8/side"},{"name":"Side Plank","rx":"35s/side"}]}]},{"id":"w7d2","label":"Day 2","focus":"Upper + Core","stretch":"Shoulder CARs + Open Book + Hollow Prep","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Pull-Up","rx":"6–8"},{"name":"Hollow Hold","rx":"30s"}],"floor":[{"name":"Prone Row","rx":"12"},{"name":"Hollow Hold","rx":"30s"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Orbits","rx":"8/dir"},{"name":"Hanging Windshield Wiper (Controlled)","rx":"4/side"}],"floor":[{"name":"Arm Orbits","rx":"10/dir"},{"name":"Russian Twist","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Pallof Press Iso Hold","rx":"30s/side"},{"name":"Bird Dog","rx":"8/side"}],"floor":[{"name":"Dead Bug (Pause)","rx":"8/side"},{"name":"Bird Dog","rx":"8/side"}]}]},{"id":"w7d3","label":"Day 3","focus":"Legs + Core","stretch":"Hip Openers + Hollow/Rock Prep","rpe":"7","supersets":[{"id":"A","rounds":"4","rest":"75s","eq":[{"name":"Bulgarian Split Squat","rx":"8/leg"},{"name":"Side Plank + Reach","rx":"8/side"}],"floor":[{"name":"Split Squat","rx":"8/leg"},{"name":"Side Plank + Reach","rx":"8/side"}]},{"id":"B","rounds":"3","rest":"60s","eq":[{"name":"Nordic Curl Eccentrics","rx":"5"},{"name":"Russian Twist","rx":"12/side"}],"floor":[{"name":"Good Morning","rx":"10"},{"name":"Russian Twist","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"KB Swing","rx":"12"},{"name":"Dead Bug","rx":"8/side"}],"floor":[{"name":"Glute Bridge","rx":"15"},{"name":"Dead Bug","rx":"8/side"}]}]},{"id":"w7d4","label":"Day 4","focus":"Core Burnout + Conditioning","stretch":"Short Dynamic Only (8–10 Min Quality Inside the 15)","rpe":"8","supersets":[{"id":"A","rounds":"5","rest":"30s","eq":[{"name":"Dead Bug","rx":"10/side"},{"name":"Front Plank","rx":"40s"},{"name":"Hip Flips","rx":"6/side"}],"floor":[{"name":"Dead Bug","rx":"10/side"},{"name":"Front Plank","rx":"40s"},{"name":"Hip Flips","rx":"6/side"}]},{"id":"B","rounds":"4","rest":"40s","eq":[{"name":"Hanging Leg Raise","rx":"10"},{"name":"Hollow Rocks","rx":"20"}],"floor":[{"name":"Lying Leg Raise","rx":"12"},{"name":"Hollow Rocks","rx":"20"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"KB Core Circuit: Sides + Semicircles + Overs + Chops","rx":"8 each"},{"name":"Orbits","rx":"8/dir"}],"floor":[{"name":"Russian Twist + Reach Chop","rx":"10/side"},{"name":"Arm Orbits","rx":"10/dir"}]}],"notes":"Density day. Rest exactly as written.","finisher":{"eq":"Field: 5×20s Scramble Shuffles + 40s Walk","floor":"Floor: 5×20s Mountain Climbers + 40s Plank"}},{"id":"w7d5","label":"Day 5","focus":"Full + Field","stretch":"WGS + CARs + Light Hip Openers","rpe":"7","supersets":[{"id":"A","rounds":"3","rest":"60s","eq":[{"name":"Goblet Squat","rx":"8"},{"name":"Band Face Pull","rx":"15"}],"floor":[{"name":"Air Squat","rx":"10"},{"name":"Prone W-Raise","rx":"15"}]},{"id":"B","rounds":"3","rest":"45s","eq":[{"name":"DB Floor Press","rx":"10"},{"name":"Single-Arm DB Row","rx":"10/side"}],"floor":[{"name":"Push-Ups","rx":"12"},{"name":"Prone Superman Pull","rx":"12"}]},{"id":"C","rounds":"3","rest":"45s","eq":[{"name":"Turkish Get-Up","rx":"2/side"},{"name":"Bear Crawl Hold","rx":"30s"}],"floor":[{"name":"Half Get-Up","rx":"3/side"},{"name":"Bear Crawl Hold","rx":"30s"}]}],"finisher":{"eq":"Field: 6 Accelerations 15–20m","floor":"Floor: 6×20 Fast Mountain Climbers"}}]},"weekB":{"id":"w8","label":"Week 8 — Intensify + Rotational Emphasis","intent":"Shorter rests, hanging windshield wipers, harder burnout density.","sessions":[{"id":"w8d1","label":"Day 1","focus":"Core + Full","stretch":"Cat-Cow, WGS, CARs, Hollow Prep","rpe":"8","supersets":[{"id":"A","rounds":"5","rest":"45s","eq":[{"name":"Hanging Leg Raise","rx":"10"},{"name":"Hollow Hold","rx":"40s"}],"floor":[{"name":"Lying Leg Raise","rx":"12"},{"name":"Hollow Hold","rx":"40s"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Chop","rx":"10/side"},{"name":"Push-Up + Clap","rx":"5"}],"floor":[{"name":"Cross-Body Dead Bug","rx":"10/side"},{"name":"Explosive Push-Ups","rx":"8"}]},{"id":"C","rounds":"4","rest":"40s","eq":[{"name":"Hip Flips","rx":"10/side"},{"name":"Suitcase Carry","rx":"40m/side"}],"floor":[{"name":"Hip Flips","rx":"10/side"},{"name":"Side Plank","rx":"45s/side"}]}]},{"id":"w8d2","label":"Day 2","focus":"Upper + Core","stretch":"CARs + Open Book + Sleeper Gentle","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"45s","eq":[{"name":"Pull-Up","rx":"AMRAP @ RPE8"},{"name":"Plank Shoulder Taps","rx":"12/side"}],"floor":[{"name":"Prone Row","rx":"15"},{"name":"Plank Shoulder Taps","rx":"12/side"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Orbits","rx":"10/dir"},{"name":"Hanging Hip Twist","rx":"8/side"}],"floor":[{"name":"Arm Orbits","rx":"12/dir"},{"name":"Russian Twist","rx":"15/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Pallof Press","rx":"12/side"},{"name":"Bird Dog","rx":"10/side"}],"floor":[{"name":"Dead Bug (Pause)","rx":"10/side"},{"name":"Bird Dog","rx":"10/side"}]}]},{"id":"w8d3","label":"Day 3","focus":"Legs + Core","stretch":"Hips + Brace Prep + Adductor","rpe":"8","supersets":[{"id":"A","rounds":"4","rest":"60s","eq":[{"name":"Bulgarian Split Squat","rx":"10/leg"},{"name":"Cossack Squat","rx":"8/side"}],"floor":[{"name":"Split Squat","rx":"10/leg"},{"name":"Lateral Lunge","rx":"8/side"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Nordic Curl Eccentrics","rx":"6"},{"name":"Assisted Copenhagen","rx":"8/side"}],"floor":[{"name":"Good Morning","rx":"12"},{"name":"Side-Lying Adductor Lift","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"KB Swing","rx":"15"},{"name":"Front Plank","rx":"60s"}],"floor":[{"name":"Glute Bridge","rx":"18"},{"name":"Front Plank","rx":"60s"}]}]},{"id":"w8d4","label":"Day 4","focus":"Core Burnout + Conditioning","stretch":"Brief Dynamic Stretch","rpe":"8–9","supersets":[{"id":"A","rounds":"6","rest":"25s","eq":[{"name":"Dead Bug","rx":"10/side"},{"name":"Front Plank","rx":"45s"},{"name":"Hip Flips","rx":"8/side"}],"floor":[{"name":"Dead Bug","rx":"10/side"},{"name":"Front Plank","rx":"45s"},{"name":"Hip Flips","rx":"8/side"}]},{"id":"B","rounds":"4","rest":"30s","eq":[{"name":"Hanging Windshield Wiper","rx":"5/side"},{"name":"Hollow Rocks","rx":"25"}],"floor":[{"name":"Russian Twist","rx":"15/side"},{"name":"Hollow Rocks","rx":"25"}]},{"id":"C","rounds":"4","rest":"30s","eq":[{"name":"KB Core Circuit: Sides + Semicircles + Overs + Chops","rx":"10 each"},{"name":"Orbits","rx":"10/dir"}],"floor":[{"name":"Cross Reach Dead Bug","rx":"12/side"},{"name":"Arm Orbits","rx":"12/dir"}]}],"notes":"Hardest core day before peak sprint. Deload a round if form breaks.","finisher":{"eq":"Field: 6×20s Scramble + 40s Walk","floor":"Floor: 6×20s Climbers + 40s Plank"}},{"id":"w8d5","label":"Day 5","focus":"Full + Field","stretch":"WGS + CARs + Hip Flips Slow","rpe":"7–8","supersets":[{"id":"A","rounds":"4","rest":"45s","eq":[{"name":"Goblet Squat","rx":"10"},{"name":"Single-Arm DB Row","rx":"12/side"}],"floor":[{"name":"Air Squat","rx":"12"},{"name":"Prone T-Raise","rx":"15"}]},{"id":"B","rounds":"3","rest":"40s","eq":[{"name":"DB Y-Press","rx":"10"},{"name":"Band Face Pull","rx":"15"}],"floor":[{"name":"Pike Push-Ups","rx":"8"},{"name":"Prone W-Raise","rx":"15"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Farmers Carry","rx":"40m"},{"name":"Hip Flips","rx":"10/side"}],"floor":[{"name":"Bear Crawl","rx":"40s"},{"name":"Hip Flips","rx":"10/side"}]}],"finisher":{"eq":"Field: 8×15–20m Accelerations","floor":"Floor: 8×25 Climbers"}}]}},{"id":"s5","weeks":"9–10","title":"World’s Most Difficult 2 Weeks","goal":"Peak density, complexity, and conditioning — still recoverable if form rules are followed.","keys":["Complex Supersets","Field COD","Minimal Rest","All Must-Include Lifts"],"weekA":{"id":"w9","label":"Week 9 — Peak Density","intent":"Hardest volume/density. Drop a round if technique fails. Sleep 8+ hrs.","sessions":[{"id":"w9d1","label":"Day 1","focus":"Full Body","stretch":"Compressed but Complete: CARs, WGS, 90/90, Hip Flips Slow","rpe":"8–9","supersets":[{"id":"A","rounds":"5","rest":"60s","eq":[{"name":"Bulgarian Split Squat","rx":"8/leg"},{"name":"Pull-Up","rx":"6–8"},{"name":"Dead Bug","rx":"8/side"}],"floor":[{"name":"Split Squat","rx":"8/leg"},{"name":"Prone Superman Pull","rx":"12"},{"name":"Dead Bug","rx":"8/side"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Push-Up + Clap","rx":"5"},{"name":"Orbits","rx":"10/dir"},{"name":"Front Plank","rx":"45s"}],"floor":[{"name":"Explosive Push-Ups","rx":"8"},{"name":"Arm Orbits","rx":"12/dir"},{"name":"Front Plank","rx":"45s"}]},{"id":"C","rounds":"4","rest":"40s","eq":[{"name":"Hip Flips","rx":"10/side"},{"name":"KB Swing","rx":"12"}],"floor":[{"name":"Hip Flips","rx":"10/side"},{"name":"Glute Bridge","rx":"15"}]}],"notes":"Deload cue: if last rep ugly, end the set."},{"id":"w9d2","label":"Day 2","focus":"Upper + Shoulders","stretch":"Long CARs + WGS + Pec/Lat","rpe":"8","supersets":[{"id":"A","rounds":"5","rest":"45s","eq":[{"name":"Shoulder CARs","rx":"5/side"},{"name":"DB Y-Press","rx":"10"},{"name":"Band Face Pull","rx":"15"}],"floor":[{"name":"Shoulder CARs","rx":"5/side"},{"name":"Prone Y-Raise","rx":"15"},{"name":"Prone W-Raise","rx":"15"}]},{"id":"B","rounds":"4","rest":"40s","eq":[{"name":"Orbits","rx":"12/dir"},{"name":"Seated Z-Press","rx":"8"},{"name":"Band ER","rx":"12/side"}],"floor":[{"name":"Arm Orbits","rx":"14/dir"},{"name":"Pike Push-Ups","rx":"8"},{"name":"Floor Angels","rx":"12"}]},{"id":"C","rounds":"4","rest":"40s","eq":[{"name":"Hanging Scapular Pull","rx":"10"},{"name":"Pallof Press Iso Hold","rx":"30s/side"}],"floor":[{"name":"Scapular Push-Up","rx":"12"},{"name":"Dead Bug (Pause)","rx":"10/side"}]}]},{"id":"w9d3","label":"Day 3","focus":"Legs + Field","stretch":"Hip Flow Heavy (90/90, Pigeon, Frog, WGS) + Hip CARs","rpe":"8–9","supersets":[{"id":"A","rounds":"5","rest":"60s","eq":[{"name":"Bulgarian Split Squat","rx":"10/leg"},{"name":"Cossack Squat","rx":"8/side"},{"name":"Nordic Curl Eccentrics","rx":"5"}],"floor":[{"name":"Reverse Lunge","rx":"10/leg"},{"name":"Lateral Lunge","rx":"8/side"},{"name":"Good Morning","rx":"12"}]},{"id":"B","rounds":"4","rest":"45s","eq":[{"name":"Lateral Bounds","rx":"6/side"},{"name":"Assisted Copenhagen","rx":"8/side"}],"floor":[{"name":"Lateral Skater Bounds","rx":"8/side"},{"name":"Side-Lying Adductor Lift","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Hip Flips","rx":"10/side"},{"name":"Hollow Rocks","rx":"25"}],"floor":[{"name":"Hip Flips","rx":"10/side"},{"name":"Hollow Rocks","rx":"25"}]}],"finisher":{"eq":"Field: 8 Rounds — 10m Shuffle + 15m Sprint + 10s High-Knee Hold","floor":"Floor: 8 Rounds — Bear + Crab + Hollow 10s"}},{"id":"w9d4","label":"Day 4","focus":"Core Burnout Peak","stretch":"Brace + CARs Only","rpe":"9","supersets":[{"id":"A","rounds":"6","rest":"20s","eq":[{"name":"Hanging Leg Raise","rx":"8"},{"name":"Front Plank","rx":"40s"},{"name":"Hip Flips","rx":"8/side"}],"floor":[{"name":"Lying Leg Raise","rx":"10"},{"name":"Front Plank","rx":"40s"},{"name":"Hip Flips","rx":"8/side"}]},{"id":"B","rounds":"5","rest":"25s","eq":[{"name":"Russian Twist","rx":"15/side"},{"name":"Hollow Rocks","rx":"25"},{"name":"Orbits","rx":"8/dir"}],"floor":[{"name":"Russian Twist","rx":"15/side"},{"name":"Hollow Rocks","rx":"25"},{"name":"Arm Orbits","rx":"10/dir"}]},{"id":"C","rounds":"4","rest":"30s","eq":[{"name":"Farmers Carry","rx":"40m"},{"name":"Hanging Windshield Wiper","rx":"4/side"}],"floor":[{"name":"Bear Crawl","rx":"40s"},{"name":"Side Plank","rx":"40s/side"}]}],"notes":"Optional 4th round cut if grip/core fails early."},{"id":"w9d5","label":"Day 5","focus":"Conditioning + Field","stretch":"Dynamic Full-Body 15 Min (WGS, CARs, Leg Swings, Bear Crawl)","rpe":"8–9","supersets":[{"id":"A","rounds":"5","rest":"35s","eq":[{"name":"Depth Jump to Broad Jump","rx":"4"},{"name":"Push-Ups","rx":"12"},{"name":"Pull-Up","rx":"AMRAP 20s"}],"floor":[{"name":"Squat Jump","rx":"6"},{"name":"Push-Ups","rx":"12"},{"name":"Prone Superman Pull","rx":"12"}]},{"id":"B","rounds":"4","rest":"35s","eq":[{"name":"One-Arm KB Snatch","rx":"5/side"},{"name":"Hip Flips","rx":"10/side"},{"name":"Bird Dog","rx":"8/side"}],"floor":[{"name":"KB Swing","rx":"12"},{"name":"Hip Flips","rx":"10/side"},{"name":"Bird Dog","rx":"8/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Turkish Get-Up","rx":"2/side"},{"name":"Shoulder CARs","rx":"4/side"}],"floor":[{"name":"Half Get-Up","rx":"3/side"},{"name":"Shoulder CARs","rx":"4/side"}]}],"finisher":{"eq":"Field: 10-Min EMOM — Odd: 20m Sprint; Even: 8 Burpees (Sprawls OK)","floor":"Floor: 10-Min EMOM — Odd: 30 Climbers; Even: 8 Sprawls"}}]},"weekB":{"id":"w10","label":"Week 10 — Peak Complexity","intent":"Same brutality + different complex sequences from your notes. Still stop for broken form.","sessions":[{"id":"w10d1","label":"Day 1","focus":"Full Body","stretch":"Full Must-Do Flow Including WGS + CARs + Hip Flips","rpe":"9","supersets":[{"id":"A","rounds":"5","rest":"50s","eq":[{"name":"Front Squat or Goblet Squat","rx":"8"},{"name":"Pull-Up","rx":"AMRAP @ RPE8"},{"name":"Pallof Press","rx":"10/side"}],"floor":[{"name":"Air Squat","rx":"15"},{"name":"Prone Row","rx":"15"},{"name":"Dead Bug (Pause)","rx":"10/side"}]},{"id":"B","rounds":"5","rest":"40s","eq":[{"name":"Bulgarian Split Squat","rx":"10/leg"},{"name":"Push-Up + Clap","rx":"5"},{"name":"Orbits","rx":"12/dir"}],"floor":[{"name":"Split Squat","rx":"10/leg"},{"name":"Explosive Push-Ups","rx":"10"},{"name":"Arm Orbits","rx":"14/dir"}]},{"id":"C","rounds":"4","rest":"40s","eq":[{"name":"Hip Flips","rx":"12/side"},{"name":"Farmers Carry × Active Hang","rx":"30m then 20s Hang"}],"floor":[{"name":"Hip Flips","rx":"12/side"},{"name":"Front Plank","rx":"50s"}]}]},{"id":"w10d2","label":"Day 2","focus":"Upper + Shoulders","stretch":"Shoulder Resilience Block (CARs, Sleeper, Pec/Lat, WGS, Wrist CARs)","rpe":"8–9","supersets":[{"id":"A","rounds":"5","rest":"40s","eq":[{"name":"Shoulder CARs","rx":"6/side"},{"name":"DB Y-Press","rx":"10"},{"name":"Seated Z-Press","rx":"8"}],"floor":[{"name":"Shoulder CARs","rx":"6/side"},{"name":"Prone Y-Raise","rx":"15"},{"name":"Pike Push-Ups","rx":"8"}]},{"id":"B","rounds":"4","rest":"35s","eq":[{"name":"Orbits","rx":"12/dir"},{"name":"Band/DB Row","rx":"15/side"},{"name":"Chaos Push-Up","rx":"8"}],"floor":[{"name":"Arm Orbits","rx":"14/dir"},{"name":"Prone T-Raise","rx":"18"},{"name":"Scapular Push-Up","rx":"12"}]},{"id":"C","rounds":"4","rest":"35s","eq":[{"name":"Hanging Leg Raise","rx":"10"},{"name":"Hollow Hold","rx":"40s"}],"floor":[{"name":"Lying Leg Raise","rx":"12"},{"name":"Hollow Hold","rx":"40s"}]}]},{"id":"w10d3","label":"Day 3","focus":"Legs + Field","stretch":"Hip Mobility Peak + Full Hip CARs","rpe":"9","supersets":[{"id":"A","rounds":"5","rest":"50s","eq":[{"name":"Bulgarian Split Squat","rx":"10/leg"},{"name":"Cossack Squat","rx":"8/side"},{"name":"Nordic Curl Eccentrics","rx":"6"}],"floor":[{"name":"Reverse Lunge","rx":"12/leg"},{"name":"Lateral Lunge","rx":"8/side"},{"name":"SL RDL","rx":"10/leg"}]},{"id":"B","rounds":"4","rest":"40s","eq":[{"name":"Depth Jump to Broad Jump","rx":"5"},{"name":"Assisted Copenhagen","rx":"8/side"}],"floor":[{"name":"Squat Jump","rx":"8"},{"name":"Side-Lying Adductor Lift","rx":"12/side"}]},{"id":"C","rounds":"4","rest":"35s","eq":[{"name":"Hip Flips","rx":"12/side"},{"name":"KB Swing","rx":"15"}],"floor":[{"name":"Hip Flips","rx":"12/side"},{"name":"Glute Bridge","rx":"20"}]}],"finisher":{"eq":"Field: 10 COD Rounds (Shuffle + Sprint + High-Knee Hold)","floor":"Floor: 10 Rounds Bear + Crab + Hollow"}},{"id":"w10d4","label":"Day 4","focus":"Core Burnout Peak","stretch":"Minimal — Earn the Hang/Plank Bookends","rpe":"9+","supersets":[{"id":"A","rounds":"7","rest":"15s","eq":[{"name":"Dead Bug","rx":"8/side"},{"name":"Front Plank","rx":"35s"},{"name":"Hip Flips","rx":"6/side"}],"floor":[{"name":"Dead Bug","rx":"8/side"},{"name":"Front Plank","rx":"35s"},{"name":"Hip Flips","rx":"6/side"}]},{"id":"B","rounds":"5","rest":"20s","eq":[{"name":"Hanging Windshield Wiper","rx":"5/side"},{"name":"Hollow Rocks","rx":"30"},{"name":"Orbits","rx":"10/dir"}],"floor":[{"name":"Russian Twist","rx":"15/side"},{"name":"Hollow Rocks","rx":"30"},{"name":"Arm Orbits","rx":"12/dir"}]},{"id":"C","rounds":"4","rest":"25s","eq":[{"name":"KB Core Circuit: Sides + Semicircles + Overs + Chops","rx":"10 each"},{"name":"Push-Ups","rx":"AMRAP 30s"}],"floor":[{"name":"Cross-Body Dead Bug","rx":"12/side"},{"name":"Push-Ups","rx":"AMRAP 30s"}]}],"notes":"Last hard day. Cut volume 20% if shoulders/hips complain."},{"id":"w10d5","label":"Day 5","focus":"Conditioning + Field (Capstone)","stretch":"Victory Lap Mobility — Still Full 15 Min","rpe":"8–9","supersets":[{"id":"A","rounds":"5","rest":"30s","eq":[{"name":"Stick Complex: Good Morning + Squat + Chop","rx":"10 each"},{"name":"Pull-Up","rx":"AMRAP 20s"},{"name":"Push-Ups","rx":"15"}],"floor":[{"name":"Good Morning + Air Squat + Reach Chop","rx":"10 each"},{"name":"Prone Row","rx":"15"},{"name":"Push-Ups","rx":"15"}]},{"id":"B","rounds":"5","rest":"30s","eq":[{"name":"Bulgarian Split Squat","rx":"8/leg"},{"name":"Hip Flips","rx":"10/side"},{"name":"Russian Twist","rx":"12/side"}],"floor":[{"name":"Reverse Lunge","rx":"10/leg"},{"name":"Hip Flips","rx":"10/side"},{"name":"Russian Twist","rx":"12/side"}]},{"id":"C","rounds":"3","rest":"40s","eq":[{"name":"Orbits","rx":"10/dir"},{"name":"Shoulder CARs","rx":"5/side"},{"name":"WGS Flow","rx":"3/side slow"}],"floor":[{"name":"Arm Orbits","rx":"12/dir"},{"name":"Shoulder CARs","rx":"5/side"},{"name":"WGS Flow","rx":"3/side"}]}],"finisher":{"eq":"Field Capstone: 12-Min EMOM — Odd Sprint 20m; Even 10 Sprawls + 5 Hip Flips/Side","floor":"Floor Capstone: 12-Min EMOM — Odd 40 Climbers; Even 10 Sprawls + 5 Hip Flips/Side"}}]}}]};
+const STORAGE_KEY = 'belen-wolverines-summer-v24';
+const PROGRESS_KEY = 'belen-wolverines-progress-v2';
+const CACHE_VERSION = 'belen-wp-v24';
+
+/** Warm-up: Weeks 1–8 = open 15-min stretch; Weeks 9–10 = outdoor movement set */
+const WARMUP_GENERAL = {
+  title: "15-Min Stretch",
+  sub: "Arm Circles, Hip Flips, World’s Greatest Stretch — your choice of order and volume. Move slow, breathe."
+};
+const WARMUP_PEAK = {
+  title: "Warm-Up Stretch",
+  sub: "Weeks 9–10 · outdoor movement set · 10 each",
+  parts: [
+    { name: "Scoops", rx: "10", cue: "Smooth scoop pattern · stay controlled" },
+    { name: "Lunges", rx: "10", cue: "Alternate legs · tall torso" },
+    { name: "Bear Crawls", rx: "10", cue: "Knees off floor · ribs down · quiet feet" },
+    { name: "World's Greatest Stretch", rx: "10", cue: "Full flow each rep · both sides" }
+  ]
+};
+
+function weekNumber(weekEntry) {
+  const m = String(weekEntry.label || weekEntry.id || '').match(/(\d+)/);
+  return m ? parseInt(m[1], 10) : 1;
+}
+function isPeakWeek(weekEntry) {
+  const n = weekNumber(weekEntry);
+  return n === 9 || n === 10;
+}
+
+function loadState() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch (e) { return {}; }
+}
+function saveState(s) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); } catch (e) {}
+}
+function loadProgress() {
+  try {
+    const p = JSON.parse(localStorage.getItem(PROGRESS_KEY) || '{}');
+    return Object.assign({ steps: {}, days: {} }, p);
+  } catch (e) {
+    return { steps: {}, days: {} };
+  }
+}
+function saveProgress() {
+  try { localStorage.setItem(PROGRESS_KEY, JSON.stringify(progress)); } catch (e) {}
+}
+
+const state = Object.assign({
+  weekId: DATA.SPRINTS[0].weekA.id,
+  dayId: DATA.SPRINTS[0].weekA.sessions[0].id,
+  track: 'eq',
+  tab: 'workout'
+}, migrateState(loadState()));
+let progress = loadProgress();
+
+function migrateState(s) {
+  // Old saves used sprintId + weekKey; convert to weekId
+  if (s.weekId) return s;
+  if (s.sprintId) {
+    const sprint = DATA.SPRINTS.find(x => x.id === s.sprintId) || DATA.SPRINTS[0];
+    const week = s.weekKey === 'B' ? sprint.weekB : sprint.weekA;
+    s.weekId = week.id;
+    delete s.sprintId;
+    delete s.weekKey;
+  }
+  return s;
+}
+
+function allSessions() {
+  const list = [];
+  DATA.SPRINTS.forEach(s => {
+    [s.weekA, s.weekB].forEach((w, wi) => {
+      w.sessions.forEach(d => {
+        list.push({
+          sprint: s,
+          week: w,
+          weekKey: wi === 0 ? 'A' : 'B',
+          session: d,
+          label: 'Wk ' + s.weeks + ' · ' + d.label
+        });
+      });
+    });
+  });
+  return list;
+}
+function totalDays() { return allSessions().length; }
+function daysDone() { return Object.keys(progress.days).length; }
+function allWeeks() {
+  const list = [];
+  DATA.SPRINTS.forEach(s => {
+    [s.weekA, s.weekB].forEach((w, wi) => {
+      list.push({
+        id: w.id,
+        label: w.label,
+        intent: w.intent,
+        weekKey: wi === 0 ? 'A' : 'B',
+        sprint: s,
+        sessions: w.sessions
+      });
+    });
+  });
+  return list;
+}
+function totalWeeks() { return allWeeks().length; }
+function weeksDone() {
+  return allWeeks().filter(w => w.sessions.every(d => dayComplete(d.id))).length;
+}
+function todayISO() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function daySteps(session) {
+  const ids = ['stretch', 'hang-start'];
+  session.supersets.forEach(ss => ids.push('ss-' + ss.id));
+  if (session.finisher) ids.push('finisher');
+  ids.push('hang-end');
+  return ids;
+}
+function stepDone(dayId, stepId) {
+  return !!(progress.steps[dayId] && progress.steps[dayId][stepId]);
+}
+function dayComplete(dayId) { return !!progress.days[dayId]; }
+function allStepsDone(dayId, session) {
+  return daySteps(session).every(id => stepDone(dayId, id));
+}
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => el.classList.remove('show'), 2200);
+}
+function updateScoreboard() {
+  const done = weeksDone();
+  const total = totalWeeks();
+  const pct = total ? Math.round((done / total) * 100) : 0;
+  document.getElementById('scoreboard').innerHTML =
+    '<div class="score-card"><span class="n">' + done + '/' + total + '</span><span class="l">Weeks completed (saved on this phone only)</span></div>';
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('progCaption').textContent = pct + '% of summer program complete';
+}
+function renderProgressList() {
+  const list = document.getElementById('progressList');
+  if (!list) return;
+  list.innerHTML = allWeeks().map(w => {
+    const daysFinished = w.sessions.filter(d => dayComplete(d.id)).length;
+    const total = w.sessions.length;
+    const done = daysFinished === total;
+    const jumpDay = w.sessions.find(d => !dayComplete(d.id)) || w.sessions[0];
+    const sub = done
+      ? 'All ' + total + ' days finished'
+      : daysFinished + '/' + total + ' days · ' + esc(w.sprint.title);
+    return '<div class="progress-row' + (done ? ' done' : '') + '">' +
+      '<div class="mark">' + (done ? '\u2713' : daysFinished || '') + '</div>' +
+      '<div><strong>' + esc(w.label) + '</strong><div style="color:var(--muted);font-size:0.8rem">' +
+      sub + '</div></div>' +
+      '<button type="button" data-jump="' + jumpDay.id + '" data-week-id="' + w.id + '">Open</button>' +
+      '</div>';
+  }).join('');
+}
+function toggleStep(dayId, stepId, session) {
+  if (!progress.steps[dayId]) progress.steps[dayId] = {};
+  const turningOn = !progress.steps[dayId][stepId];
+  if (turningOn) {
+    progress.steps[dayId][stepId] = true;
+    showToast('Done');
+  } else {
+    delete progress.steps[dayId][stepId];
+    if (progress.days[dayId]) delete progress.days[dayId];
+  }
+  if (turningOn && allStepsDone(dayId, session) && !progress.days[dayId]) {
+    completeDay(dayId, true);
+  }
+  saveProgress();
+  render();
+}
+function completeDay(dayId, auto) {
+  if (progress.days[dayId]) return;
+  progress.days[dayId] = todayISO();
+  saveProgress();
+  showToast(auto ? 'Day complete — saved on this phone' : 'Day marked complete');
+}
+function markDayComplete(dayId, session) {
+  daySteps(session).forEach(id => {
+    if (!stepDone(dayId, id)) {
+      if (!progress.steps[dayId]) progress.steps[dayId] = {};
+      progress.steps[dayId][id] = true;
+    }
+  });
+  if (!progress.days[dayId]) completeDay(dayId, false);
+  else saveProgress();
+  render();
+}
+function checkHead(title, sub, num, stepId, dayId) {
+  const on = stepDone(dayId, stepId);
+  return '<div class="step-head">' +
+    '<div class="step-num">' + num + '</div><div>' +
+    '<p class="step-title">' + title + '</p>' +
+    '<p class="step-sub">' + sub + '</p></div>' +
+    '<button type="button" class="check-btn' + (on ? ' on' : '') + '" data-check="' + stepId + '" aria-label="Mark done">' +
+    (on ? '\u2713' : '') + '</button></div>';
+}
+
+const weekEl = document.getElementById('week');
+const dayEl = document.getElementById('day');
+const sessionEl = document.getElementById('session');
+const trackToggle = document.getElementById('trackToggle');
+const offlineBar = document.getElementById('offlineBar');
+const cacheStatus = document.getElementById('cacheStatus');
+
+function findWeekEntry(weekId) {
+  return allWeeks().find(w => w.id === weekId) || allWeeks()[0];
+}
+function currentWeekEntry() {
+  return findWeekEntry(state.weekId);
+}
+function currentSprint() {
+  return currentWeekEntry().sprint;
+}
+function currentWeek() {
+  return currentWeekEntry();
+}
+
+function fillWeeks() {
+  weekEl.innerHTML = '';
+  allWeeks().forEach(w => {
+    const o = document.createElement('option');
+    o.value = w.id;
+    const num = (String(w.label).match(/Week\s+(\d+)/i) || [])[1] || w.id;
+    o.textContent = 'Week ' + num + ' — ' + w.sprint.title;
+    weekEl.appendChild(o);
+  });
+  if (!allWeeks().some(w => w.id === state.weekId)) state.weekId = allWeeks()[0].id;
+  weekEl.value = state.weekId;
+}
+
+function fillDays() {
+  const w = currentWeek();
+  dayEl.innerHTML = '';
+  w.sessions.forEach(d => {
+    const o = document.createElement('option');
+    o.value = d.id;
+    o.textContent = (dayComplete(d.id) ? '\u2713 ' : '') + d.label + ' · ' + focusLabel(d.focus);
+    dayEl.appendChild(o);
+  });
+  if (!w.sessions.some(d => d.id === state.dayId)) state.dayId = w.sessions[0].id;
+  dayEl.value = state.dayId;
+}
+
+function focusLabel(f) {
+  // Focus strings in DATA are already display-ready Title Case.
+  return f || '';
+}
+
+function esc(t) {
+  return String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function cleanStretchLabel(s) {
+  let out = String(s).trim();
+  if (out.includes(':')) {
+    const after = out.slice(out.indexOf(':') + 1).trim();
+    if (after.length > 2) out = after;
+  }
+  out = out
+    .replace(/^\d+\s*-?\s*min(?:ute)?s?\s+/i, '')
+    .replace(/^(?:long(?:er)?|deep|full|light|extra time on|brief)\s+/i, '')
+    .replace(/\s*\(\d+\s*\/\s*side\)\s*/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+  return titleCasePhrase(out);
+}
+
+function titleCasePhrase(str) {
+  const small = new Set(['a','an','the','and','or','of','to','for','with','at','in','on','per','then']);
+  const special = {
+    cars: 'CARs', wgs: 'WGS', er: 'ER', rdl: 'RDL', db: 'DB', kb: 'KB',
+    pallof: 'Pallof', bulgarian: 'Bulgarian', '90/90': '90/90',
+    'push-up': 'Push-Up', 'push-ups': 'Push-Ups', 'pull-apart': 'Pull-Apart',
+    'cat-cow': 'Cat-Cow', 'thread-the-needle': 'Thread-the-Needle',
+    "world's": "World's", 'world’s': 'World’s'
+  };
+  return String(str).split(/(\s+)/).map((tok, idx, arr) => {
+    if (/^\s+$/.test(tok)) return tok;
+    const isFirst = arr.slice(0, idx).every(t => /^\s+$/.test(t));
+    const prev = arr.slice(0, idx).filter(t => !/^\s+$/.test(t)).pop();
+    const forceCap = isFirst || prev === '+' || prev === '·';
+    return tok.split('/').map(part => {
+      const m = part.match(/^([^A-Za-z0-9]*)(.*?)([^A-Za-z0-9]*)$/);
+      if (!m || !m[2]) return part;
+      const [, pre, core, post] = m;
+      const lower = core.toLowerCase();
+      if (special[lower]) return pre + special[lower] + post;
+      if (core.includes('-')) {
+        return pre + core.split('-').map((p, i) => {
+          const pl = p.toLowerCase();
+          if (special[pl]) return special[pl];
+          if (!forceCap && i > 0 && small.has(pl)) return pl;
+          return p.charAt(0).toUpperCase() + p.slice(1).toLowerCase();
+        }).join('-') + post;
+      }
+      if (!forceCap && small.has(lower)) return pre + lower + post;
+      return pre + core.charAt(0).toUpperCase() + core.slice(1).toLowerCase() + post;
+    }).join('/');
+  }).join('');
+}
+
+function splitStretch(text) {
+  let t = String(text || '').trim();
+  // "Full shoulder series 15 min (CARs, WGS, wall slides)" -> use inside parens list if present
+  const parenList = t.match(/\(([^)]*[,+][^)]*)\)/);
+  if (parenList) {
+    t = parenList[1] + ', ' + t.replace(parenList[0], ' ');
+  }
+  // Drop leading blurb before colon when the rest is a list
+  if (t.includes(':')) {
+    const after = t.slice(t.indexOf(':') + 1).trim();
+    if (/[,+]/.test(after) || after.length > 8) t = after;
+  }
+  return t
+    .split(/\s*[+;,]\s*|\s+including\s+/i)
+    .map(cleanStretchLabel)
+    .map(s => s.replace(/^[(&]+|[)&]+$/g, '').trim())
+    .filter(s => s.length > 1)
+    .filter(s => !/^(same as|minimal|victory|dynamic full-body|dynamic hips|hips primary|faster transitions|emphasize|add \d|recovery bias|only|slow|quick|flow|block|series|circuit|prep|emphasis|rock prep|high-knee hold|shoulder series.*|hip-only.*|must-do.*)$/i.test(s));
+}
+
+/** Split joined exercise names into separate moves. Keeps DB/KB style equipment alternates intact. */
+function splitJoinedMoveName(name) {
+  const raw = String(name || '').trim();
+  if (!raw) return [raw];
+  // Protect equipment pairs: DB/KB, Band/DB, KB/DB, etc.
+  const protectedName = raw.replace(/\b(DB|KB|Band)\s*\/\s*(DB|KB|Band)\b/gi, (m) => m.replace('/', '\u2044'));
+  let parts = protectedName.split(/\s+\+\s+/).map(s => s.trim()).filter(Boolean);
+  // Also split "Face pull / prone W" but not protected equipment
+  if (parts.length === 1 && /\//.test(protectedName)) {
+    parts = protectedName.split(/\s*\/\s*/).map(s => s.trim()).filter(Boolean);
+  }
+  parts = parts.map(s => s.replace(/\u2044/g, '/'));
+  // Don't split if second half is a tiny modifier, not its own drill
+  const modifiers = /^(pulses|reach|opposite reach|band abduction.*|if available|box\/bench|bench)$/i;
+  if (parts.length === 2 && modifiers.test(parts[1])) {
+    return [raw];
+  }
+  return parts.length ? parts : [raw];
+}
+
+function expandMoves(moves) {
+  const out = [];
+  (moves || []).forEach(m => {
+    const parts = splitJoinedMoveName(m.name);
+    if (parts.length <= 1) {
+      out.push(m);
+      return;
+    }
+    parts.forEach(p => {
+      out.push({ name: p, rx: m.rx, cue: m.cue });
+    });
+  });
+  return out;
+}
+
+function linkedName(label, howtoKey) {
+  const key = howtoKey || label;
+  const entry = window.ExerciseVideos ? ExerciseVideos.lookup(key) : null;
+  if (entry && ExerciseVideos.hasVideo(entry)) {
+    return '<button type="button" class="ex-link" data-howto="' + esc(key) + '">' + esc(label) + '</button>';
+  }
+  return esc(label) + ' <span class="no-video">No video available</span>';
+}
+
+function moveHtml(m, i) {
+  return '<div class="move"><div class="move-meta">' +
+    '<div class="move-name">' + String.fromCharCode(65 + i) + '. ' + linkedName(m.name) + '</div>' +
+    '<div class="move-rx">' + esc(m.rx) + '</div>' +
+  '</div></div>';
+}
+
+
+function hangBlock(isFloor, which, num, dayId, stepId) {
+  const title = which === 'start' ? 'Dead Hang' : 'Closing Hang';
+  const floorTitle = 'Plank';
+  const on = stepDone(dayId, stepId);
+  const headTitle = isFloor ? floorTitle : title;
+  const sub = isFloor
+    ? 'Hold a strong plank in push-up position. Body straight, ribs down.'
+    : 'Dead hang from a bar. Knees bent OK.';
+  const demoName = isFloor ? 'Front Plank' : 'Dead Hang';
+  const titleHtml = linkedName(headTitle, demoName);
+  const head =
+    '<div class="step-head">' +
+      '<div class="step-num">' + num + '</div><div>' +
+      '<p class="step-title">' + titleHtml + '</p>' +
+      '<p class="step-sub">' + esc(sub) + '</p></div>' +
+      '<button type="button" class="check-btn' + (on ? ' on' : '') + '" data-check="' + stepId + '" aria-label="Mark done">' +
+      (on ? '\u2713' : '') + '</button></div>';
+  const body = '<div class="hang-box"><div class="hang-time">1:00</div></div>';
+  return '<div class="step hang' + (on ? ' done' : '') + '">' + head +
+    '<div class="step-body">' + body + '</div></div>';
+}
+
+function render() {
+  fillWeeks();
+  fillDays();
+  updateScoreboard();
+  renderProgressList();
+
+  const sprint = currentSprint();
+  const week = currentWeek();
+  const session = week.sessions.find(d => d.id === state.dayId) || week.sessions[0];
+  const dayId = session.id;
+  const floor = state.track === 'floor';
+  let step = 3;
+
+  let html = '';
+  if (dayComplete(dayId)) {
+    html += '<div class="note">Day complete — saved on this phone only.</div>';
+  }
+  html += '<div class="mission"><strong>Theme</strong><p>' + esc(sprint.title) + ' — ' + esc(sprint.goal) + '</p></div>';
+  html += '<div class="mission"><strong>This week</strong><p>' + esc(week.intent) + '</p></div>';
+  html += '<div class="pills">';
+  html += '<span class="pill">' + esc(focusLabel(session.focus)) + '</span>';
+  html += '<span class="pill">Target effort RPE ' + esc(session.rpe) + '</span>';
+  html += '<span class="pill">' + (floor ? 'Floor only' : 'Full gym') + '</span>';
+  html += '</div>';
+  if (session.notes) html += '<div class="note">' + esc(session.notes) + '</div>';
+
+  html += '<div class="flow">';
+
+  const stretchOn = stepDone(dayId, 'stretch');
+  html += '<div class="step warmup' + (stretchOn ? ' done' : '') + '">';
+  if (isPeakWeek(week)) {
+    html += checkHead(WARMUP_PEAK.title, esc(WARMUP_PEAK.sub), 1, 'stretch', dayId);
+    html += '<div class="step-body">';
+    html += '<ul class="stretch-list">';
+    WARMUP_PEAK.parts.forEach(p => {
+      html += '<li><div class="stretch-part">' +
+        '<div><span class="part-name">' + linkedName(p.name) + '</span>' +
+        (p.cue ? '<span class="part-cue">' + esc(p.cue) + '</span>' : '') +
+        '</div><span class="part-rx">' + esc(p.rx) + '</span></div></li>';
+    });
+    html += '</ul><div class="timer-hint">Finish all 4 moves before the hang.</div></div></div>';
+  } else {
+    html += checkHead(WARMUP_GENERAL.title, esc(WARMUP_GENERAL.sub), 1, 'stretch', dayId);
+    html += '<div class="step-body">';
+    html += '<div class="hang-box"><div class="hang-time">15:00</div></div>';
+    html += '<div class="timer-hint">Stretch on your own, then start the hang.</div></div></div>';
+  }
+
+  html += hangBlock(floor, 'start', 2, dayId, 'hang-start');
+
+  session.supersets.forEach(ss => {
+    const moves = expandMoves(floor ? ss.floor : ss.eq);
+    const sid = 'ss-' + ss.id;
+    const n = step++;
+    const on = stepDone(dayId, sid);
+    const letters = moves.map((_, i) => String.fromCharCode(65 + i)).join(' then ');
+    html += '<div class="step work' + (on ? ' done' : '') + '">';
+    html += checkHead('Superset ' + esc(ss.id), 'Do ' + letters + ' · repeat', n, sid, dayId);
+    html += '<div class="step-body">';
+    html += '<p class="ss-meta">' + esc(ss.rounds) + ' rounds · rest ' + esc(ss.rest) + '</p>';
+    moves.forEach((m, i) => { html += moveHtml(m, i); });
+    html += '</div></div>';
+  });
+
+  if (session.finisher) {
+    const f = floor ? session.finisher.floor : session.finisher.eq;
+    const n = step++;
+    const on = stepDone(dayId, 'finisher');
+    html += '<div class="step finish' + (on ? ' done' : '') + '">';
+    html += checkHead('Finisher', 'Last hard push · then closing hang', n, 'finisher', dayId);
+    html += '<div class="step-body">';
+    const finEntry = window.ExerciseVideos ? ExerciseVideos.lookup(f) : null;
+    if (finEntry && ExerciseVideos.hasVideo(finEntry)) {
+      html += '<button type="button" class="finisher-link" data-howto="' + esc(f) + '">' + esc(f) + '</button>';
+    } else {
+      html += '<p class="finisher-text">' + esc(f) + '</p>';
+      html += '<p class="modal-note" style="margin-top:6px">No video available</p>';
+    }
+    html += '</div></div>';
+  }
+
+  html += hangBlock(floor, 'end', step, dayId, 'hang-end');
+  html += '</div>';
+
+  const finished = dayComplete(dayId);
+  const ready = allStepsDone(dayId, session);
+  html += '<div class="day-complete-bar' + (finished ? ' done' : '') + '">';
+  if (finished) {
+    html += '<div class="msg">Day complete. Saved on this phone only — nobody else can see it.</div>';
+  } else if (ready) {
+    html += '<div class="msg">All blocks checked.</div>';
+    html += '<button type="button" data-complete-day="1">Mark day complete</button>';
+  } else {
+    html += '<div class="msg">Check each block as you finish, or mark the whole day done.</div>';
+    html += '<button type="button" data-complete-day="1">Mark whole day done</button>';
+  }
+  html += '</div>';
+
+  sessionEl.innerHTML = html;
+  saveState(state);
+
+  document.getElementById('panel-workout').hidden = state.tab !== 'workout';
+  document.getElementById('panel-progress').hidden = state.tab !== 'progress';
+  document.getElementById('panel-info').hidden = state.tab !== 'info';
+  document.querySelectorAll('#tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === state.tab));
+}
+
+weekEl.addEventListener('change', () => {
+  state.weekId = weekEl.value;
+  state.dayId = currentWeek().sessions[0].id;
+  saveState(state);
+  render();
+});
+dayEl.addEventListener('change', () => {
+  state.dayId = dayEl.value;
+  saveState(state);
+  render();
+});
+trackToggle.addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-track]');
+  if (!btn) return;
+  state.track = btn.dataset.track;
+  trackToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.track === state.track));
+  saveState(state);
+  render();
+});
+
+document.getElementById('tabs').addEventListener('click', (e) => {
+  const btn = e.target.closest('button[data-tab]');
+  if (!btn) return;
+  state.tab = btn.dataset.tab;
+  saveState(state);
+  render();
+});
+
+trackToggle.querySelectorAll('button').forEach(b => b.classList.toggle('active', b.dataset.track === state.track));
+
+function updateOnline() {
+  offlineBar.classList.toggle('show', !navigator.onLine);
+}
+window.addEventListener('online', updateOnline);
+window.addEventListener('offline', updateOnline);
+updateOnline();
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').then(() => {
+    cacheStatus.textContent = 'Saved on this phone — works with no Wi‑Fi';
+    cacheStatus.classList.add('ok');
+  }).catch(() => {
+    cacheStatus.textContent = 'Open once on Wi‑Fi so it can save for offline gym use';
+  });
+} else {
+  cacheStatus.textContent = 'Tip: open this page once online, then keep the tab open in the gym';
+}
+
+
+const modal = document.getElementById('howtoModal');
+const howtoTitle = document.getElementById('howtoTitle');
+const howtoBody = document.getElementById('howtoBody');
+const howtoClose = document.getElementById('howtoClose');
+
+function openHowto(name) {
+  const entry = window.ExerciseVideos
+    ? ExerciseVideos.lookup(name)
+    : { title: name, unavailable: true };
+  howtoTitle.textContent = entry.title || name;
+  if (!window.ExerciseVideos || !ExerciseVideos.hasVideo(entry)) {
+    howtoBody.innerHTML = '<p class="modal-note">No video available</p><p class="modal-note">' + esc(name) + '</p>';
+  } else {
+    howtoBody.innerHTML = ExerciseVideos.embedHtml(entry) +
+      '<p class="modal-note">' + esc(name) + '</p>' +
+      '<a class="ms-link" href="' + esc(entry.page) + '" target="_blank" rel="noopener noreferrer">Open on Muscle &amp; Strength</a>';
+  }
+  modal.hidden = false;
+  document.body.style.overflow = 'hidden';
+}
+function closeHowto() {
+  modal.hidden = true;
+  document.body.style.overflow = '';
+}
+howtoClose.addEventListener('click', closeHowto);
+modal.addEventListener('click', (e) => { if (e.target === modal) closeHowto(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !modal.hidden) closeHowto(); });
+sessionEl.addEventListener('click', (e) => {
+  const how = e.target.closest('[data-howto]');
+  if (how) {
+    openHowto(how.getAttribute('data-howto'));
+    return;
+  }
+  const check = e.target.closest('[data-check]');
+  if (check) {
+    const week = currentWeek();
+    const session = week.sessions.find(d => d.id === state.dayId) || week.sessions[0];
+    toggleStep(session.id, check.getAttribute('data-check'), session);
+    return;
+  }
+  if (e.target.closest('[data-complete-day]')) {
+    const week = currentWeek();
+    const session = week.sessions.find(d => d.id === state.dayId) || week.sessions[0];
+    markDayComplete(session.id, session);
+  }
+});
+
+document.getElementById('progressList').addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-jump]');
+  if (!btn) return;
+  state.weekId = btn.getAttribute('data-week-id');
+  state.dayId = btn.getAttribute('data-jump');
+  state.tab = 'workout';
+  saveState(state);
+  render();
+  window.scrollTo(0, 0);
+});
+
+document.getElementById('resetProgress').addEventListener('click', () => {
+  if (!confirm('Clear all checkmarks and points on this phone?')) return;
+  progress = { steps: {}, days: {} };
+  saveProgress();
+  showToast('Progress cleared');
+  render();
+});
+
+render();
+</script>
+</body>
+</html>
