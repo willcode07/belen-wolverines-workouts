@@ -1,4 +1,4 @@
-const CACHE = 'belen-wp-v30';
+const CACHE = 'belen-wp-v31';
 const ASSETS = ['./', './index.html', './exercise-videos.js', './manifest.webmanifest', './sw.js'];
 
 self.addEventListener('install', (event) => {
